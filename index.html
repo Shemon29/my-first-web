@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nazrul Classic - Bus Reservation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            background-image: linear-gradient(315deg, #1a1a1a 0%, #333333 74%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            color: #333;
+            max-width: 550px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border-top: 8px solid #e51a22; /* লোগোর লাল রং */
+        }
+
+        .header {
+            background: #000000; /* লোগোর কালো রং */
+            padding: 25px;
+            text-align: center;
+            border-bottom: 3px solid #e51a22;
+        }
+
+        .logo-placeholder {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        form {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #222;
+            font-size: 15px;
+        }
+
+        .form-group label span {
+            color: #e51a22;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #e51a22;
+            box-shadow: 0 0 8px rgba(229, 26, 34, 0.2);
+        }
+
+        /* রেডিও বাটনের সুন্দর ডিজাইন */
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-option input {
+            margin-right: 8px;
+            accent-color: #e51a22;
+            width: 18px;
+            height: 18px;
+        }
+
+        .submit-btn {
+            background: #e51a22;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229, 26, 34, 0.3);
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #b81117;
+        }
+
+        /* রেসপন্সিভ করার জন্য */
+        @media (max-width: 480px) {
+            form {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- হেডার সেকশন (এখানে লোগো এবং নাম সেট করা হয়েছে) -->
+    <div class="header">
+        <!-- লোগো ইমেজ ট্যাগ: আপনার ফোল্ডারে ইমেজটির নাম 1000040008.jpg রাখবেন -->
+        <img src="1000040008.jpg" alt="Nazrul Classic Logo" class="logo-placeholder">
+        <h1>Nazrul Classic</h1>
+        <p>অনলাইন বাস রিজার্ভেশন ফর্ম</p>
+    </div>
+
+    <!-- ফর্ম সেকশন -->
+    <form id="reservationForm" onsubmit="handleSubmit(event)">
+        
+        <!-- ১. কবে যাবেন -->
+        <div class="form-group">
+            <label for="departureDate">১. কবে যাবেন? <span>*</span></label>
+            <input type="date" id="departureDate" required>
+        </div>
+
+        <!-- ২. কোন জায়গা থেকে কোন জায়গায় ভ্রমণ করবেন -->
+        <div class="form-group">
+            <label for="route">২. কোন জায়গা থেকে কোন কোন জায়গায় ভ্রমণ করবেন? <span>*</span></label>
+            <input type="text" id="route" placeholder="উদা: ঢাকা থেকে সিলেট হয়ে কক্সবাজার" required>
+        </div>
+
+        <!-- ৩. রাস্তায় কোনো প্রকার খরচ বহন করবেন কি না -->
+        <div class="form-group">
+            <label>৩. রাস্তায় কোনো প্রকার খরচ (টোল, পার্কিং ইত্যাদি) বহন করবেন কি না? <span>*</span></label>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="expense" value="হ্যাঁ, করব" required> হ্যাঁ, করব
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="expense" value="না, করব না" required> না, করব না
+                </label>
+            </div>
+        </div>
+
+        <!-- ৪. কত সিটের গাড়ি লাগবে -->
+        <div class="form-group">
+            <label for="seatCapacity">৪. কত সিটের গাড়ি লাগবে? <span>*</span></label>
+            <select id="seatCapacity" required>
+                <option value="" disabled selected>সিট সংখ্যা সিলেক্ট করুন</option>
+                <option value="২৪ সিট (Coaster)">২৪ সিট (Coaster)</option>
+                <option value="২৯ সিট (AC/Non-AC)">২৯ সিট (AC/Non-AC)</option>
+                <option value="৩৬ সিট (Hino) ">৩৬ সিট (Hino)</option>
+                <option value="৪০ সিট (Scania/Volvo)">৪০ সিট (Scania/Volvo)</option>
+            </select>
+        </div>
+
+        <!-- ৫. কবে ফেরত আসবেন -->
+        <div class="form-group">
+            <label for="returnDate">৫. কবে ফেরত আসবেন? <span>*</span></label>
+            <input type="date" id="returnDate" required>
+        </div>
+
+        <!-- সাবমিট বাটন -->
+        <button type="submit" class="submit-btn">রিজার্ভেশন রিকোয়েস্ট পাঠান</button>
+    </form>
+</div>
+
+<script>
+    // ফর্ম সাবমিট হলে কী হবে তার কোড
+    function handleSubmit(event) {
+        event.preventDefault();
+        
+        // ফর্মের সব ডেটা সংগ্রহ করা
+        const departureDate = document.getElementById('departureDate').value;
+        const route = document.getElementById('route').value;
+        const expense = document.querySelector('input[name="expense"]:checked').value;
+        const seatCapacity = document.getElementById('seatCapacity').value;
+        const returnDate = document.getElementById('returnDate').value;
+
+        // একটি সাকসেস মেসেজ দেখানো (আপাতত টেস্ট করার জন্য)
+        alert(`ধন্যবাদ! নাজরুল ক্লাসিক-এ আপনার রিকোয়েস্টটি গৃহীত হয়েছে।\n\nতথ্যসমূহ:\n১. যাওয়ার তারিখ: ${departureDate}\n২. রুট: ${route}\n৩. খরচ বহন: ${expense}\n৪. গাড়ির সাইজ: ${seatCapacity}\n৫. ফেরার তারিখ: ${returnDate}`);
+        
+        // ফর্মটি রিসেট করে দেওয়া
+        document.getElementById('reservationForm').reset();
+    }
+</script>
+
+</body>
+</html>
